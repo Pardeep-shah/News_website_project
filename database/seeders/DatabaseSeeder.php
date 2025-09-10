@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             CountriesTableSeeder::class,
+            NewsSeeder::class,
             // other seeders...
         ]);
     }

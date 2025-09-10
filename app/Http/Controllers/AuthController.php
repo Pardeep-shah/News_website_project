@@ -17,6 +17,7 @@ use App\Mail\LoginNotificationMail;
 
 
 
+
 class AuthController extends Controller
 {
     // Show the registration form
@@ -181,5 +182,37 @@ class AuthController extends Controller
         }
 
         return redirect()->back()->with('error', 'Invalid code. Please try again.');
+    }
+
+
+    public function edit()
+    {
+        $countries = Country::all();
+        return view('auth.edit', ['user' => Auth::user(), 'countries' => Country::all()]);
+    }
+
+    public function update(Request $request)
+    {
+        $user = Auth::user();
+
+        $data = $request->validate([
+            'first_name' => 'required|string|max:50',
+            'last_name'  => 'required|string|max:50',
+            'email'      => 'required|email|max:100|unique:users,email,' . $user->id,
+            'phone_no'   => 'nullable|string|max:15',
+            'alt_phone_no' => 'nullable|string|max:15',
+            'state'      => 'nullable|string|max:100',
+            'city'       => 'nullable|string|max:100',
+            'pincode'    => 'nullable|string|max:10',
+            'profile_picture' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        if ($request->hasFile('profile_picture')) {
+            $data['profile_picture'] = $request->file('profile_picture')->store('profiles', 'public');
+        }
+
+        $user->update($data);
+
+        return redirect()->route('profile.edit')->with('success', 'Profile updated successfully!');
     }
 }

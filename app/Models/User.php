@@ -25,7 +25,14 @@ class User extends Authenticatable
         'country_id',
         'twofa_secret',
         'twofa_enabled',
+        'phone_no',
+        'alt_phone_no',
+        'profile_picture',
+        'state',
+        'city',
+        'pincode',
     ];
+
 
     /**
      * The attributes that should be hidden for serialization.

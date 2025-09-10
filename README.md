@@ -58,3 +58,25 @@ step2
 create html file for login view for email
 create mail file WelcomeMail
 update the register method
+
+##
+
+1. create a model named News.php
+   'user_id',
+   'news_heading',
+   'news_header_image',
+   'short_description',
+   'news_large_description',
+   'images', // multiple images (JSON or comma separated)
+   'news_link', // external/internal link
+   'published_by', // name of publisher
+   'content',
+   'category', // e.g. politics, sports, tech
+   'tags', // comma separated tags
+   'status', // draft / published
+   'published_at', // when news goes live
+   'views_count',
+2. then create migration =>C:\xampp\htdocs\News_website\database\migrations\2025_09_05_124604_create_news_table.php
+
+3. now make seeder file named => NewsSeeder.php
+=>  to run seeder use command => php artisan db:seed --class=NewsSeeder

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\NewsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,6 +24,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', function () {
         return view('auth.my_profile');
     })->name('profile');
+
+    Route::get('/profile/edit', [AuthController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile/update', [AuthController::class, 'update'])->name('profile.update');
+
 
     // Two-Factor Authentication Routes
     Route::get('/twofa/prompt', [AuthController::class, 'showTwoFAPrompt'])->name('twofa.prompt');
